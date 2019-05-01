@@ -1,0 +1,27 @@
+############################################
+## default index file
+
+    DirectoryIndex index.php
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    ## Eliminar la extensión ################
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $4.php
+
+    ## URLs amigables ################
+
+    ## Convierte ?c=$1 en /valor1
+    RewriteRule ^(\w+)/?$ index.php?c=$1 [L]
+
+    ## Convierte ?c=$1&a=$2 en /valor1/valor2.
+    RewriteRule ^(\w+)/(\w+)/?$ index.php?c=$1&a=$2 [L]
+
+    ## Convierte ?c=$1&a=$2&id=$2 en /valor1/valor2/valor3
+    RewriteRule ^(\w+)/(\w+)/(\w+)/?$ index.php?c=$1&a=$2&id=$3 [L]
+
+</IfModule>

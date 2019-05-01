@@ -1,0 +1,4 @@
+User-agent: *
+
+## Permitimos el rastreo de todo el sitio
+Disallow: /
