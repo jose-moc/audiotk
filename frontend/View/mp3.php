@@ -1,5 +1,5 @@
 <h1 class="page-header">Albums Mp3</h1>
-<div class="row">
+<div class="row items-wrapper">
   <?php $_collection = $this->getAllMp3(); ?>
   <?php if($_collection): ?>
   	<?php foreach ($_collection as $item): ?>

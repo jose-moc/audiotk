@@ -133,6 +133,10 @@ body {
 .main .page-header {
   margin-top: 0;
 }
+.main .items-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
 .cover {
   border: 1px solid #ccc;
 }

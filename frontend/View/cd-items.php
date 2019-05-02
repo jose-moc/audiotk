@@ -6,7 +6,7 @@
   </div>
 </div>
 <?php if($albums): ?>
-  <div class="row">
+  <div class="row items-wrapper">
     <?php foreach ($albums as $item): ?>
         <div class="col-xxs-12 col-xs-6 col-sm-4 col-md-3 col-xxl-2">
           <div class="item">

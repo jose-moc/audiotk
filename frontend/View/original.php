@@ -1,6 +1,6 @@
 <h1 class="page-header">Albums Originales</h1>
 
-<div class="row">
+<div class="row items-wrapper">
   <?php $albums_collection = $this->getAllOri(); ?>
   <?php if($albums_collection): ?>
   	<?php foreach ($albums_collection as $item): ?>
