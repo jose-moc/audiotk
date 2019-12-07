@@ -1,6 +1,6 @@
 <h1 class="page-header">Cds de Mp3</h1>
 
-<div class="row items-wrapper">
+<div class="row items-wrapper cds-grid">
   <?php $cds_collection = $this->getAllCds(); ?>
   <?php if($cds_collection): ?>
     <?php foreach ($cds_collection as $_cd): ?>
