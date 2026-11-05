@@ -1,66 +1,21 @@
-############################################
-## default index file
-
-    DirectoryIndex index.php
-
-<IfModule mod_php5.c>
-
-############################################
-## adjust memory limit
-
-#    php_value memory_limit 128M
-#    php_value max_execution_time 18000
-
-############################################
-## enable resulting html compression
-
-    php_flag zlib.output_compression on
-
-</IfModule>
+DirectoryIndex index.php
 
 <IfModule mod_rewrite.c>
-############################################
-## activa el motor de reescritura de el servidor apache
+    RewriteEngine On
 
-    RewriteEngine on
-
-	Options +FollowSymLinks
+    # Evitar listado de directorios
     Options -Indexes
-    Options -ExecCGI
-    AddHandler cgi-script .sql .pl .py .jsp .asp .htm .shtml .sh .phtml .cgi
 
-############################################
-## Si el archivo o carpeta especificados en la URL no se encuentra o no existe se procede
-## a reescribir la regla , en este caso ejecuta la siguiente regla siempre y cuando el archivo o carpeta
-## no existan y como para MVC las carpetas y archivos "no existen" entonces se ejecuta la regla siempre
+    # No modificar archivos ni directorios existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 
-	RewriteCond %{REQUEST_FILENAME} !-d
-	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteCond %{REQUEST_FILENAME} !-l
+    # /controlador/accion/id
+    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([0-9]+)/?$ index.php?c=$1&a=$2&id=$3 [QSA,L]
 
-############################################
-## URLs amigables
+    # /controlador/accion
+    RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ index.php?c=$1&a=$2 [QSA,L]
 
-    ## Convierte ?c=$1 en /valor1
-    RewriteRule ^(\w+)/?$ index.php?c=$1 [L]
-
-    ## Convierte ?c=$1&a=$2 en /valor1/valor2.
-    RewriteRule ^(\w+)/(\w+)/?$ index.php?c=$1&a=$2 [L]
-
-    ## Convierte ?c=$1&a=$2&id=$2 en /valor1/valor2/valor3
-    RewriteRule ^(\w+)/(\w+)/(\w+)/?$ index.php?c=$1&a=$2&id=$3 [L]
-
-############################################
-## TRACE and TRACK HTTP methods disabled to prevent XSS attacks
-
-    RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
-    RewriteRule .* - [L,R=405]
-
+    # /controlador
+    RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?c=$1 [QSA,L]
 </IfModule>
-
-############################################
-## Proteje el archivo config
-<Files config.php,audiotk_db.sql>
-    Order allow,deny
-    Deny from all
-</Files>
